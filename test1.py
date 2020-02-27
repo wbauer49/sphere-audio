@@ -76,7 +76,7 @@ def run_steps(spheres, num_steps, skip=num_skip):
             print(step)
         do_step(spheres)
     print(audio)
-    filename = "wavs/test1_s{0}_nspheres{1}_nsteps{2}_g{3}_k{4}.wav".format(size, num_spheres, num_steps, '{:.0e}'.format(default_g), '{:.0e}'.format(default_k))
+    filename = "wavs/test1_s{0}_n{1}_g{2}_k{3}.wav".format(size, num_spheres, '{:.0e}'.format(default_g), '{:.0e}'.format(default_k))
     wav.write(filename, 44100, audio)
     print("saved to", filename)
 
@@ -87,6 +87,6 @@ def run_simulation():
     run_steps(spheres, num_steps)
 
 
-for kp in range(-9, 1):
-    k = 10 ** -kp
+for kp in range(-9, 0):
+    default_k = 10 ** (kp)
     run_simulation()
