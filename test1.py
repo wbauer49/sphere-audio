@@ -7,9 +7,9 @@ import scipy.io.wavfile as wav
 size = 10
 num_spheres = 4
 num_steps = 1000000
-num_skip = 10000
-default_g = 1e-2
-default_k = 1e-3
+num_skip = 100000
+default_g = 0.01
+default_k = 0.001
 sample_rate = 44100
 
 display_graph = False
@@ -76,12 +76,17 @@ def run_steps(spheres, num_steps, skip=num_skip):
             print(step)
         do_step(spheres)
     print(audio)
-    filename = "wavs/test1-s{0}-nspheres{1}-nsteps{2}-g{3}-k{4}.wav".format(size, num_spheres, num_steps, default_g, default_k)
+    filename = "wavs/test1_s{0}_nspheres{1}_nsteps{2}_g{3}_k{4}.wav".format(size, num_spheres, num_steps, '{:.0e}'.format(default_g), '{:.0e}'.format(default_k))
     wav.write(filename, 44100, audio)
     print("saved to", filename)
 
-for num_spheres in range(10):
+def run_simulation():
     spheres = []
     for i in range(num_spheres):
         spheres.append(Sphere([i, i, 0]))
     run_steps(spheres, num_steps)
+
+
+for kp in range(-9, 1):
+    k = 10 ** -kp
+    run_simulation()
